@@ -23,10 +23,10 @@ let speak = true;
 
 // Load sounds
 function preload() {
-  let animal1 = new Audio('media/sound1.mp3');
-  let animal2 = new Audio('media/sound2.mp3');
-  let animal3 = new Audio('media/sound3.mp3');
-  let animal4 = new Audio('media/sound4.mp3');
+  let animal1 = createAudio('media/sound1.mp3');
+  let animal2 = createAudio('media/sound2.mp3');
+  let animal3 = createAudio('media/sound3.mp3');
+  let animal4 = createAudio('media/sound4.mp3');
   eAnimal = [animal1, animal2, animal3, animal4];
 }
 
