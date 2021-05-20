@@ -7,6 +7,7 @@ let animal = [4]; // Easy
 
 let note = []; // Easy
 let  eAnimal = [];
+let eNote = [];
 
 let player = [];
 let counter;
@@ -30,7 +31,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1000, 1000);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
