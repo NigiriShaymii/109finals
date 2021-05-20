@@ -2,7 +2,7 @@ let rando;
 let audio;
 var sound = new AudioContext;
 
-let cry;
+let cry, index;
 
 // Assigning sound
 let animal = [4]; // Easy
@@ -82,11 +82,9 @@ function setup() {
 
   eAnimal = shuffle(eAnimal);
   console.log(eAnimal);
-
 }
 
 function draw() {
-  background(wolf);
 
   switch (space) {
     case "zoom":
@@ -164,15 +162,6 @@ function init() {
 // Then player repeats the sound
 // A single error will start over the memorization.
 function game() {
-background(wolf);
-
-  if (counter == 0 && speak) {
-    for (var i = 0; i < rando; i++) {
-      cry = eAnimal[i];
-      cry.play();
-    }
-    speak = false;
-  }
 }
 
 // Lose Condition
@@ -210,40 +199,64 @@ function keyPressed() {
     audio = true;
   }
 
+  if (speak) {
+    for (var i = 0; i < 8; i++) {
+      console.log("List " + eAnimal[i]);
+      eAnimal[i].snd.play();
+      setInterval(ani, 1000);
+
+    }
+    speak = false;
+  }
+}
+
+function ani() {
+  index++;
+  if(index >= eAnimal.length) {
+    index = 0;
+  }
 }
 
 function keyTyped() {
-
+    background(wolf);
   if(!audio) {
     audio = true;
   }
-  console.log("playing");
+
+
 
 
   if (space == "d1") {
     if (key === 'w') {
       w.play();
+      player[counter] = 0;
     } else if (key === 'a') {
       a.play();
+      player[counter] = 1;
     } else if (key === 'd') {
       d.play();
+      player[counter] = 2;
     } else if (key === 's') {
       s.play();
+      player[counter] = 3;
     }
-    counter++;
+
 
     console.log("Play: " + player[counter]);
     console.log("E: " + eMode[counter]);
     if (player[counter] != eMode[counter]) {
       speak = true;
       counter = 0;
+      background('rgba(255,0,0, 0.25)');
     } else if (player[counter] === eMode[counter]) {
+      erase();
+      background('rgba(0,255,0, 0.25)');
       correct++;
       counter++;
-      console.log("Correct " + correct);
+        console.log("Correct " + correct);
     }
 
-    if (correct === 8) {
+    if (correct >= 8) {
       counter = 0;
       space = "youWon";
     }
