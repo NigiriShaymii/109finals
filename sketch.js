@@ -155,7 +155,7 @@ function init() {
 // Then player repeats the sound
 // A single error will start over the memorization.
 function game() {
-
+background(wolf);
 
   if (counter == 0 && speak) {
     for (var i = 0; i < rando; i++) {
