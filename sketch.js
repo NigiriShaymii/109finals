@@ -1,9 +1,12 @@
 let rando;
+let audio;
+var sound = new AudioContext;
 
 // Assigning sound
 let animal = [4]; // Easy
 
 let note = []; // Easy
+let  eAnimal = [];
 
 let player = [];
 let counter;
@@ -19,11 +22,11 @@ let speak = true;
 
 // Load sounds
 function preload() {
-  //animal1 = loadImage('images/sugarOne.png');
-  //animal2 = loadImage('images/sugarOne.png');
-  //animal3 = loadImage('images/sugarOne.png');
-  //animal4 = loadImage('images/sugarOne.png');
-  //eAnimal = [animal1, animal2, animal3, animal4];
+  let animal1 = new Audio('media/sound1.mp3');
+  let animal2 = new Audio('media/sound2.mp3');
+  let animal3 = new Audio('media/sound3.mp3');
+  let animal4 = new Audio('media/sound4.mp3');
+  eAnimal = [animal1, animal2, animal3, animal4];
 }
 
 function setup() {
@@ -182,6 +185,12 @@ function youWon() {
 
 // Pressing the keys during gameplay.
 function keyPressed() {
+
+  if(!audio) {
+    audio = true;
+  }
+  console.log("playing");
+
   if (space == "d1") {
     if (keyCode == UP_ARROW) {
       eAnimal[0].play();
