@@ -1,6 +1,7 @@
 let rando;
 let audio;
 var sound = new AudioContext;
+
 let cry;
 
 // Assigning sound
@@ -14,7 +15,8 @@ let w;
 let a;
 let d;
 let s;
-
+let  eAnimal = [];
+let eNote = [];
 let player = [];
 let counter = 0;
 let life = 5;
@@ -67,13 +69,21 @@ eAnimal = [{
   button: 3
 }]
 
+
+  let animal1 = createAudio('media/sound1.mp3');
+  let animal2 = createAudio('media/sound2.mp3');
+  let animal3 = createAudio('media/sound3.mp3');
+  let animal4 = createAudio('media/sound4.mp3');
+  eAnimal = [animal1, animal2, animal3, animal4];
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+
   eAnimal = shuffle(eAnimal);
   console.log(eAnimal);
+
 }
 
 function draw() {
@@ -196,6 +206,7 @@ function youWon() {
 
 // Pressing the keys during gameplay.
 function keyPressed() {
+<<<<<<< HEAD
   if (!audio) {
     audio = true;
   }
@@ -203,6 +214,13 @@ function keyPressed() {
 }
 
 function keyTyped() {
+=======
+
+  if(!audio) {
+    audio = true;
+  }
+  console.log("playing");
+>>>>>>> fbe01c82bd52992e6b1a4cabf985dafbd456e3d1
 
   if (space == "d1") {
     if (key === 'w') {
