@@ -8,7 +8,6 @@ let cry;
 let animal = [4]; // Easy
 
 let note = []; // Easy
-let eAnimal = [];
 let eMode = [];
 
 let w;
@@ -129,7 +128,7 @@ function zoomScreen() {
 
   textSize(20);
   text(
-    "Guess the sequence of the noises using the arrow keys. \n\n Click to proceed.",
+    "Using WASD, play around with the noises. \n\n Click to proceed.",
     windowWidth / 2,
     (windowHeight * 7) / 8
   );
@@ -206,7 +205,7 @@ function youWon() {
 
 // Pressing the keys during gameplay.
 function keyPressed() {
-<<<<<<< HEAD
+
   if (!audio) {
     audio = true;
   }
@@ -219,7 +218,7 @@ function keyTyped() {
     audio = true;
   }
   console.log("playing");
->>>>>>> fbe01c82bd52992e6b1a4cabf985dafbd456e3d1
+
 
   if (space == "d1") {
     if (key === 'w') {
