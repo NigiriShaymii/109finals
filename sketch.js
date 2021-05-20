@@ -1,13 +1,24 @@
 let rando;
+let audio;
+var sound = new AudioContext;
+let cry;
 
 // Assigning sound
 let animal = [4]; // Easy
 
 let note = []; // Easy
+let eAnimal = [];
+let eMode = [];
+
+let w;
+let a;
+let d;
+let s;
 
 let player = [];
-let counter;
-let life = 3;
+let counter = 0;
+let life = 5;
+let correct = 0;
 
 let space = "zoom";
 
@@ -16,22 +27,57 @@ let button;
 let gameStarted = false;
 let playing = true;
 let speak = true;
+let start = true;
 
 // Load sounds
 function preload() {
-  //animal1 = loadImage('images/sugarOne.png');
-  //animal2 = loadImage('images/sugarOne.png');
-  //animal3 = loadImage('images/sugarOne.png');
-  //animal4 = loadImage('images/sugarOne.png');
-  //eAnimal = [animal1, animal2, animal3, animal4];
+
+  wolf = loadImage('media/wolfGlitch.jpg');
+
+  w = loadSound('media/sound1.mp3');
+  a = loadSound('media/sound2.mp3');
+  d = loadSound('media/sound3.mp3');
+  s = loadSound('media/sound4.mp3');
+
+
+
+eAnimal = [{
+  snd: loadSound('media/sound1.mp3'),
+  button: 0
+}, {
+  snd: loadSound('media/sound2.mp3'),
+  button: 1
+}, {
+  snd: loadSound('media/sound3.mp3'),
+  button: 2
+}, {
+  snd: loadSound('media/sound4.mp3'),
+  button: 3
+}, {
+  snd: loadSound('media/sound1.mp3'),
+  button: 0
+}, {
+  snd: loadSound('media/sound2.mp3'),
+  button: 1
+}, {
+  snd: loadSound('media/sound3.mp3'),
+  button: 2
+}, {
+  snd: loadSound('media/sound4.mp3'),
+  button: 3
+}]
+
 }
 
 function setup() {
-  createCanvas(1000, 1000);
+  createCanvas(windowWidth, windowHeight);
+
+  eAnimal = shuffle(eAnimal);
+  console.log(eAnimal);
 }
 
 function draw() {
-  background(255);
+  background(wolf);
 
   switch (space) {
     case "zoom":
@@ -86,32 +132,21 @@ function zoomScreen() {
 //Set up CPU array numbers
 function init() {
   // Initiate rando number.
-  let rand = random(3, 6);
-  rando = rand;
 
   // Array with randomized, given numbers
-  let eMode = [rando];
+  eMode = [8];
 
   // Each element have number 1, 2, 3, 4, each for arrow keys.
   // The arrow keys then get assigned to sounds.
   // eAnimal[] is the default array of sound library.
   // eNote[] is what is being played when the game starts.
   if (space == "d1") {
-    for (var i = 0; i < rand; i++) {
-      
-      eMode[i] = random(0, 4);
+    for (var i = 0; i < 8; i++) {
 
+      eMode[i] = round(random(0, 4));
       // Assigning Sound library array to randomized array
-      // eMode[] <-> eNote[] <-> eAnimal[]
-      if (eMode[i] == 0) {
-        eNote[i] == eAnimal[0];
-      } else if (eMode[i] == 1) {
-        eNote[i] == eAnimal[1];
-      } else if (eMode[i] == 2) {
-        eNote[i] == eAnimal[2];
-      } else if (eMode[i] == 3) {
-        eNote[i] == eAnimal[3];
-      }
+      // eMode[] <->  eAnimal[]
+      console.log("Order: " + eMode[i]);
     }
   }
 }
@@ -120,35 +155,14 @@ function init() {
 // Then player repeats the sound
 // A single error will start over the memorization.
 function game() {
-  background(0);
-  circle(windowWidth / 2, windowHeight / 2, 100);
-  counter = 0;
-  speak = true;
-  
-  while (playing) {
-    if (counter == 0 && speak) {
-      for (var i = 0; i < rando; i++) {
-        eNote[i].play();
-      }
-      
-      speak = false;
+
+
+  if (counter == 0 && speak) {
+    for (var i = 0; i < rando; i++) {
+      cry = eAnimal[i];
+      cry.play();
     }
-    
-    // Player gets the pattern wrong.
-    if (player[counter] != eMode[counter]) {
-      counter = 0;
-      life -= 1;
-    }
-    else if (player[3] == eMode[3]) {
-      counter = 0;
-      space = "youWon";
-      break;
-    }
-    else if(life == 0)
-      {
-        space = "youLose";
-        break;
-      }
+    speak = false;
   }
 }
 
@@ -182,23 +196,40 @@ function youWon() {
 
 // Pressing the keys during gameplay.
 function keyPressed() {
+  if (!audio) {
+    audio = true;
+  }
+
+}
+
+function keyTyped() {
+
   if (space == "d1") {
-    if (keyCode == UP_ARROW) {
-      eAnimal[0].play();
-      player[counter] = 1;
+    if (key === 'w') {
+      w.play();
+    } else if (key === 'a') {
+      a.play();
+    } else if (key === 'd') {
+      d.play();
+    } else if (key === 's') {
+      s.play();
+    }
+    counter++;
+
+    console.log("Play: " + player[counter]);
+    console.log("E: " + eMode[counter]);
+    if (player[counter] != eMode[counter]) {
+      speak = true;
+      counter = 0;
+    } else if (player[counter] === eMode[counter]) {
+      correct++;
       counter++;
-    } else if (keyCode == LEFT_ARROW) {
-      player[counter] = 2;
-      counter++;
-      eAnimal[1].play();
-    } else if (keyCode == RIGHT_ARROW) {
-      player[counter] = 3;
-      counter++;
-      eAnimal[2].play();
-    } else if (keyCode == DOWN_ARROW) {
-      player[counter] = 4;
-      counter++;
-      eAnimal[3].play();
+      console.log("Correct " + correct);
+    }
+
+    if (correct === 8) {
+      counter = 0;
+      space = "youWon";
     }
   }
 }
