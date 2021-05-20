@@ -214,7 +214,6 @@ function keyPressed() {
 }
 
 function keyTyped() {
-=======
 
   if(!audio) {
     audio = true;
